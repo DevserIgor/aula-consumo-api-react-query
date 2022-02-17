@@ -1,28 +1,12 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios';
-import { useApi } from './hooks/useApi';
+import { Route, Routes } from "react-router-dom";
+import { Repo } from "./Pages/Repo";
+import { Repos } from "./Pages/Repos";
 
-type Repository = {
-  full_name: string;
-  description: string;
-}
-
-function App() {
-  const { data:repositories, isFetching } = useApi<Repository[]>("/users/devserigor/repos");
-  
+export function App() {
   return (
-    <ul>
-      { isFetching && <p>Carregando...</p>}
-      {repositories?.map((repo) => {
-        return (
-          <li key={repo.full_name}>
-            <strong>{repo.full_name}</strong>
-            <p>{repo.description}</p>
-          </li>
-        );
-      })}
-    </ul>
-  );
+    <Routes>
+      <Route  path="/" element={<Repos />} />
+      <Route  path="/repos/*" element={<Repo />} />
+    </Routes>
+  )
 }
-
-export default App
